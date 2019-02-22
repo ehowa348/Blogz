@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <title>{{title}}</title>
+    </head>
+<body>
+    <a href="/home">home</a>
+    <a href="/allpost">all posts</a>
+    <a href="/newpost">new post</a>
+    <a href="/signup">sign up</a>
+    <a href="/login">login</a>
+    <a href="/logout">logout</a>
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
