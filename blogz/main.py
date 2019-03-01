@@ -1,25 +1,27 @@
 from flask import Flask, request, redirect, render_template, url_for,session
 from flask_sqlalchemy import SQLAlchemy 
-from input_checks import valid_length, match
+
 from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogz@localhost:8889/blogz'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:cheese@localhost:8889/blogz'
+
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'shhh123'
+
 db = SQLAlchemy(app)
+app.secret_key = 'cheese'
+
 
 
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30))
+    title = db.Column(db.String(120))
     body = db.Column(db.Text)
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
     pub_date = db.Column(db.DateTime)
-    author_username = db.Column(db.String(20))
+    author_username = db.Column(db.String(120))
 
     def __init__(self, name, body,owner, pub_date,author_username):
         self.title = name
@@ -31,8 +33,8 @@ class Blog(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer,primary_key=True)
-    username = db.Column(db.String(20))
-    password = db.Column(db.String(20))
+    username = db.Column(db.String(120))
+    password = db.Column(db.String(120))
     blogs = db.relationship('Blog', backref='owner_id')
 
     def __init__(self,username,password):
